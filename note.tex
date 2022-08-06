@@ -1,35 +1,32 @@
 % LTeX: language=de
 \documentclass[a4paper,11pt,oneside]{scrartcl}
-
 % For best results, it is recommended to use lualatex.
 % You don't need to edit the preamble until the fat comment below.
 
-% Set the fonts.
-\usepackage{microtype}
-\usepackage{iftex}
-\ifpdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{amssymb}
-  \usepackage[lf]{ebgaramond}
-  \usepackage{ebgaramond-maths}
-  \usepackage[oldstyle,scale=0.7]{sourcecodepro}
-  \else
-  \usepackage{fontspec}
-  \usepackage{unicode-math}
-  \setmainfont{EB Garamond}
-  \makeatletter\def\MT@warn@unknown{}\makeatother
-  \setmathfont{Garamond Math}
-  \setmonofont[Scale=MatchLowercase]{Source Code Pro}
-\fi
+% Multilanguage support
+\usepackage[english,ngerman,shorthands=off]{babel}
 
-% standard packages
+% Set serif font:
+\usepackage[lining,semibold,scaled=1.05]{ebgaramond}
+
+% Set monospace font:
+\usepackage[scale=0.85]{sourcecodepro}
+
+% if amsthm is needed, must be loaded before newtxmath
 \usepackage{amsmath}
+\usepackage{amsthm}
+
+% Set math font:
+\usepackage[ebgaramond,vvarbb,subscriptcorrection]{newtxmath}
+
+% load after all math to give access to bold math using \bm{..} command:
+\usepackage{bm}
+
+% Standard packages
+\usepackage{microtype}
 \usepackage{booktabs}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{graphicx}
-\usepackage{siunitx}
-\usepackage{dsfont}
 \usepackage[autostyle=true]{csquotes}
 
 \usepackage[shortlabels]{enumitem}
@@ -81,10 +78,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT BELOW THIS LINE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% If this document is written mainly in german:
-\usepackage[english,ngerman,shorthands=off]{babel}
-% If this document is written mainly in english:
-% \usepackage[ngerman,english,shorthands=off]{babel}
+% If the document is mainly written in English,
+% then comment the following line:
+\AtBeginDocument{\selectlanguage{ngerman}}
 
 % Set the title of this document:
 \title{Eine kurze Notiz zu dieser Notiz}
@@ -127,7 +123,7 @@
 
 Du kannst diese \texttt{.tex}-Datei als Vorlage für Lösungen, Projektpläne, Notizen und kurze Berichte benutzen.
 Falls möglich, solltest du sie mit \verb|lualatex| kompilieren.
-Du kannst die Datei auf GitHub finden (\url{https://github.com/goethe-tcs/note-template}) oder auch auf Overleaf (\url{https://www.overleaf.com/read/bbxtmsfhsfkv}). Wenn du Overleaf benutzen möchtest, musst du ein Overleaf-Konto anlegen und \hyphenquote{english}{copy project} klicken, um eine private Kopie der Datei zu erzeugen, die du dann editieren kannst.
+Du kannst die Datei auf GitHub finden (\url{https://github.com/goethe-tcs/note-template}) oder auch auf Overleaf (\url{https://www.overleaf.com/read/bbxtmsfhsfkv}). Wenn du Overleaf benutzen möchtest, musst du ein Overleaf-Konto anlegen und im Menü \hyphenquote{english}{Copy Project} klicken, um eine private Kopie der Datei zu erzeugen, die du dann editieren kannst.
 
 Die Vorlage benutzt die Schriftarten EB Garamond und Source Code Pro. Stelle sicher, dass du sie auch wirklich installiert hast. Normalerweise sind sie bei einer vollen Installation von texlive mit dabei. Du kannst die Schriftarten aber natürlich auch ändern.
 
@@ -142,7 +138,7 @@ Die Vorlage benutzt die Schriftarten EB Garamond und Source Code Pro. Stelle sic
   Dasselbe gilt für 'Apostroph' anstatt \enquote*{Apostroph}.
   Der Befehl passt sich übrigens automatisch auf die ausgewählte Sprache an, da die Anführungszeichen subtil anders sein könnten.
   Im Englischen wäre das hier korrekt:
-  \selectlanguage{english}\enquote{Quotation marks}\selectlanguage{ngerman}
+  \foreignlanguage{english}{\enquote{Quotation marks}}
   \item Neulinge verwenden nie die Rechtschreibprüfung. Stattdessen sollte man sie immer angeschaltet lassen!
   \item Neulinge versenden die fertige Datei mit dem Dateinamen \verb|main.pdf|. Wähle stattdessen einen Namen, der \emph{für den Empfänger} sinnvoll ist, zum Beispiel \verb|project-plan-Cooper.pdf|.
 \end{itemize}
@@ -150,7 +146,7 @@ Die Vorlage benutzt die Schriftarten EB Garamond und Source Code Pro. Stelle sic
 \section*{Zitieren}
 
 Zum Zitieren einer Quelle schreibt man zum Beispiel Karp~\cite{DBLP:conf/coco/Karp72}.
-Zwischen dem \verb|\cite|-Kommando und dem Namen sollte hierbei unbedingt ein \selectlanguage{english}non-breaking space\selectlanguage{ngerman} \verb|~| stehen, damit die Zeile dort nicht plötzlich endet. Also so: \verb|Karp~\cite{DBLP:conf/coco/Karp72}|. Falls der Name mehrmals hintereinander erwähnt wird, sollte das \verb|\cite| Kommando nur beim ersten Auftauchen benutzt werden.
+Zwischen dem \verb|\cite|-Kommando und dem Namen sollte hierbei unbedingt ein \textit{non-breaking space} \verb|~| stehen, damit die Zeile dort nicht plötzlich endet. Also so: \verb|Karp~\cite{DBLP:conf/coco/Karp72}|. Falls der Name mehrmals hintereinander erwähnt wird, sollte das \verb|\cite| Kommando nur beim ersten Auftauchen benutzt werden.
 
 
 \section*{Bilder}
@@ -176,10 +172,10 @@ Programmcode oder Pseudocode kann so eingebunden werden:
 In Aufgabe 1a) ist zu zeigen, dass Algorithmus $A$ die Laufzeit $O(n^2)$ hat. Oder $\Omega(n\log n)$? Vielleicht auch $\Theta(n)$.
 
 Sei $T(n)$ die Laufzeit von $A$ auf Eingaben der Größe $n$.
-Dann gilt $T(n)\le T(n-1) + 10n$, denn~$A$ macht für jedes Bit der Eingabe höchstens zehn Rechenschritte und ruft sich dann selbst rekursiv wieder auf, mit einer Eingabe der Größe $n-1$. Wir beweisen nun mithilfe vollständiger Induktion, dass $T(n)\le 10n^2$ für alle positiven $n$ gilt:
+Dann gilt $T(n)\le T(n-1) + 10n$, denn~$A$ macht für jedes Bit der Eingabe höchstens zehn Rechenschritte und ruft sich dann selbst rekursiv wieder auf, mit einer Eingabe der Größe $n-1$. Wir beweisen nun mithilfe vollständiger Induktion, dass $T(n)\le 10n^2$ für alle positiven $n\in\mathbb{N}$ gilt:
 
 \begin{itemize}
-  \item Für den Induktionsanfang stellen wir fest, dass $T(1)=10=10 \cdot 1^2$ gilt.
+  \item Für den Induktionsanfang $n=1$ stellen wir fest, dass $T(1)=10=10 \cdot 1^2$ gilt.
   \item Für den Induktionsschluss sei nun $n>1$. Wir können die Induktionsannahme voraussetzen, dass $T(n-1)\le 10 (n-1)^2$ gilt, und müssen zeigen, dass $T(n)\le 10n^2$ gilt. Tatsächlich haben wir:
   \begin{align*}
     T(n) &\le T(n-1)+10n
