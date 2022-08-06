@@ -1,0 +1,197 @@
+% LTeX: language=de
+\documentclass[a4paper,11pt,oneside]{scrartcl}
+
+% For best results, it is recommended to use lualatex.
+% You don't need to edit the preamble until the fat comment below.
+
+% Set the fonts.
+\usepackage{microtype}
+\usepackage{iftex}
+\ifpdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{amssymb}
+  \usepackage[lf]{ebgaramond}
+  \usepackage{ebgaramond-maths}
+  \usepackage[oldstyle,scale=0.7]{sourcecodepro}
+  \else
+  \usepackage{fontspec}
+  \usepackage{unicode-math}
+  \setmainfont{EB Garamond}
+  \makeatletter\def\MT@warn@unknown{}\makeatother
+  \setmathfont{Garamond Math}
+  \setmonofont[Scale=MatchLowercase]{Source Code Pro}
+\fi
+
+% standard packages
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{dsfont}
+\usepackage[autostyle=true]{csquotes}
+
+\usepackage[shortlabels]{enumitem}
+\setlist[itemize,1]{label=$\circ$}
+
+\definecolor{GoetheBlue}{rgb}{0,0.38,0.56}
+\usepackage[%
+  colorlinks = true,
+  citecolor  = GoetheBlue,
+  linkcolor  = GoetheBlue,
+  urlcolor   = GoetheBlue,
+  unicode,
+  ]{hyperref}
+
+% Nice typesetting of source code
+\usepackage{listings}
+\lstset{%
+  showstringspaces=false,
+  mathescape=true,
+  inputencoding=utf8,
+  numbers=left,
+  xleftmargin=\parindent,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{black!60},
+  stringstyle=\color{orange},
+  tabsize=2%
+}
+
+\addtokomafont{disposition}{\rmfamily}
+\addtokomafont{title}{\let\huge\Large}
+\addtokomafont{section}{\large}
+\addtokomafont{subsection}{\normalsize}
+\addtokomafont{subsubsection}{\normalfont\itshape}
+\addtokomafont{author}{\normalsize}
+\addtokomafont{date}{\normalsize}
+\makeatletter
+\renewcommand*{\@maketitle}{%
+{\usekomafont{title}{\huge \@title \par}}%
+\vskip 0.3em%
+{\renewcommand\and{\par}\usekomafont{author}{\@author\par}}%
+\vskip 0.3em%
+{\usekomafont{date}{\@date\par}}%
+\rule{\textwidth}{0.4pt}
+}%
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT BELOW THIS LINE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% If this document is written mainly in german:
+\usepackage[english,ngerman,shorthands=off]{babel}
+% If this document is written mainly in english:
+% \usepackage[ngerman,english,shorthands=off]{babel}
+
+% Set the title of this document:
+\title{Eine kurze Notiz zu dieser Notiz}
+% \title{Lösung zu Aufgabe x}
+% \title{Seminar Report: Dijkstra and Friends}
+% \title{Project Plan: An Implementation of Dijkstra's Algorithm}
+
+% Fill in all authors:
+\author{%
+  Alice Cooper (s0000001@stud.uni-frankfurt.de)%
+  \and Bob Marley (s0000002@stud.uni-frankfurt.de)%
+  \and Charlie Chaplin (s0000003@stud.uni-frankfurt.de)%
+}
+
+% Date of the document:
+\date{\today}
+
+% Add any packages that you need:
+% \usepackage{tikz}
+
+% Add any references you cite.
+% You can get most BibTex records from https://dblp.org.
+% Use the format "condensed".
+\begin{filecontents}[overwrite]{\jobname.bib}
+@inproceedings{DBLP:conf/coco/Karp72,
+  author    = {Richard M. Karp},
+  title     = {Reducibility Among Combinatorial Problems},
+  booktitle = {Complexity of Computer Computations},
+  series    = {The {IBM} Research Symposia Series},
+  pages     = {85--103},
+  publisher = {Plenum Press, New York},
+  year      = {1972}
+}
+\end{filecontents}
+
+\begin{document}
+\maketitle
+
+\section*{Diese Vorlage benutzen}
+
+Du kannst diese \texttt{.tex}-Datei als Vorlage für Lösungen, Projektpläne, Notizen und kurze Berichte benutzen.
+Falls möglich, solltest du sie mit \verb|lualatex| kompilieren.
+Du kannst die Datei auf GitHub finden (\url{https://github.com/goethe-tcs/note-template}) oder auch auf Overleaf (\url{https://www.overleaf.com/read/bbxtmsfhsfkv}). Wenn du Overleaf benutzen möchtest, musst du ein Overleaf-Konto anlegen und \hyphenquote{english}{copy project} klicken, um eine private Kopie der Datei zu erzeugen, die du dann editieren kannst.
+
+Die Vorlage benutzt die Schriftarten EB Garamond und Source Code Pro. Stelle sicher, dass du sie auch wirklich installiert hast. Normalerweise sind sie bei einer vollen Installation von texlive mit dabei. Du kannst die Schriftarten aber natürlich auch ändern.
+
+\section*{Übliche Fehler}
+
+Übliche Fehler von \LaTeX{}-Neulingen sind:
+\begin{itemize}
+  \item Neulinge benutzen \verb|\\|, um einen neuen Absatz zu beginnen. Stattdessen sollte man \verb|\\| quasi nie benutzen!
+  Man sollte zwischen Absätzen im Quellcode eine leere Zeile lassen. Absätze werden eingerückt, das ist üblich und erwünscht!
+  \item Neulinge schreiben \enquote{Sei n eine gerade Zahl} anstatt \enquote{Sei $n$ eine gerade Zahl}. Nur das zweite ist richtig! Wenn man eine mathematische Formel oder ein mathematisches Symbol benutzt, muss man \emph{immer} Mathemodus benutzen, also \verb|$n$| schreiben!
+  \item Neulinge schreiben "Anführungszeichen" anstatt \enquote{Anführungszeichen}: Das erste ist in jeder Sprache falsch! Man sollte also immer \verb|\enquote{..}| benutzen.
+  Dasselbe gilt für 'Apostroph' anstatt \enquote*{Apostroph}.
+  Der Befehl passt sich übrigens automatisch auf die ausgewählte Sprache an, da die Anführungszeichen subtil anders sein könnten.
+  Im Englischen wäre das hier korrekt:
+  \selectlanguage{english}\enquote{Quotation marks}\selectlanguage{ngerman}
+  \item Neulinge verwenden nie die Rechtschreibprüfung. Stattdessen sollte man sie immer angeschaltet lassen!
+  \item Neulinge versenden die fertige Datei mit dem Dateinamen \verb|main.pdf|. Wähle stattdessen einen Namen, der \emph{für den Empfänger} sinnvoll ist, zum Beispiel \verb|project-plan-Cooper.pdf|.
+\end{itemize}
+
+\section*{Zitieren}
+
+Zum Zitieren einer Quelle schreibt man zum Beispiel Karp~\cite{DBLP:conf/coco/Karp72}.
+Zwischen dem \verb|\cite|-Kommando und dem Namen sollte hierbei unbedingt ein \selectlanguage{english}non-breaking space\selectlanguage{ngerman} \verb|~| stehen, damit die Zeile dort nicht plötzlich endet. Also so: \verb|Karp~\cite{DBLP:conf/coco/Karp72}|. Falls der Name mehrmals hintereinander erwähnt wird, sollte das \verb|\cite| Kommando nur beim ersten Auftauchen benutzt werden.
+
+
+\section*{Bilder}
+
+Bilder lassen sich mit \verb|\includegraphics{mein-bild.pdf}| einfügen, welches eine abphotographierte Zeichnung sein kann oder eine mit \href{https://inkscape.org/}{inkscape} produzierte Vektorgraphik. Am Schönsten zeichnet man natürlich mit \href{https://www.overleaf.com/learn/latex/TikZ_package/}{TikZ}.
+
+
+\section*{Programmcode}
+
+Programmcode oder Pseudocode kann so eingebunden werden:
+\begin{lstlisting}[language=C++]
+  for (int i = 1; i < n; i++) {
+    for (int j = 1; j < i; j++) {
+      std::cout << i; /* $\Theta(n^2)$ mal ausgefuehrt */
+    }
+  }
+\end{lstlisting}
+
+
+% falls es Aufgabenteile gibt, hier ein Beispiel:
+\section*{Aufgabe 1a)}
+
+In Aufgabe 1a) ist zu zeigen, dass Algorithmus $A$ die Laufzeit $O(n^2)$ hat. Oder $\Omega(n\log n)$? Vielleicht auch $\Theta(n)$.
+
+Sei $T(n)$ die Laufzeit von $A$ auf Eingaben der Größe $n$.
+Dann gilt $T(n)\le T(n-1) + 10n$, denn~$A$ macht für jedes Bit der Eingabe höchstens zehn Rechenschritte und ruft sich dann selbst rekursiv wieder auf, mit einer Eingabe der Größe $n-1$. Wir beweisen nun mithilfe vollständiger Induktion, dass $T(n)\le 10n^2$ für alle positiven $n$ gilt:
+
+\begin{itemize}
+  \item Für den Induktionsanfang stellen wir fest, dass $T(1)=10=10 \cdot 1^2$ gilt.
+  \item Für den Induktionsschluss sei nun $n>1$. Wir können die Induktionsannahme voraussetzen, dass $T(n-1)\le 10 (n-1)^2$ gilt, und müssen zeigen, dass $T(n)\le 10n^2$ gilt. Tatsächlich haben wir:
+  \begin{align*}
+    T(n) &\le T(n-1)+10n
+    \le 10(n-1)^2 + 10n\\
+    &= 10 (n^2-2n+1+n)
+    = 10 (n^2-n+1) \le 10 n^2\,.
+  \end{align*}
+  Das war zu zeigen.
+\end{itemize}
+
+% You can comment this out if you don't need a bibliography:
+\bibliographystyle{plainurl}
+\bibliography{\jobname}
+
+\end{document}
