@@ -24,17 +24,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: LaTeX compilation
-        uses: dante-ev/latex-action@2021-A
-        with:
-          root_file: note.tex
-          args: -pdflua -latexoption=-file-line-error -latexoption=-interaction=nonstopmode
+      # This hack makes hspaans/latexmk-action use lualatex:
+      - run: echo "\$pdflatex = 'lualatex -file-line-error %O %S';" >> .latexmkrc
 
-      - name: Release pdf files to tag on github
-        uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Compile LateX
+        uses: hspaans/latexmk-action@v1
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Latest version"
-          files: "*.pdf"
+          format: pdf
+          filename: "*.tex"
+
+      - name: Push generated files to branch 'gh-pages'
+        run: |
+          mkdir -p static/pdf
+          mv *.pdf static/pdf
+          cd static/pdf
+          git init -b main
+          git config user.name $GITHUB_ACTOR
+          git config user.email $GITHUB_ACTOR@users.noreply.github.com
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git add .
+          git commit -m "[release] Publish on GitHub Pages"
+          git push --force origin main:gh-pages
+        if: ${{ success() }}
