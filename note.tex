@@ -1,10 +1,10 @@
 % LTeX: language=de
-\documentclass[a4paper,11pt,oneside]{scrartcl}
+\documentclass[a4paper,11pt,oneside,ngerman]{scrartcl}
 % For best results, it is recommended to use lualatex.
 % You don't need to edit the preamble until the fat comment below.
 
 % Multilanguage support
-\usepackage[english,ngerman,shorthands=off]{babel}
+\usepackage[english,main=ngerman,shorthands=off]{babel}
 
 % Set serif font:
 \usepackage[lining,semibold,scaled=1.05]{ebgaramond}
@@ -40,6 +40,7 @@
   urlcolor   = GoetheBlue,
   unicode,
   ]{hyperref}
+  \usepackage[nameinlink,capitalize]{cleveref}
 
 % Nice typesetting of source code
 \usepackage{listings}
@@ -79,7 +80,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % If the document is mainly written in English,
-% then comment the following line:
+% then modify the following line:
 \AtBeginDocument{\selectlanguage{ngerman}}
 
 % Set the title of this document:
@@ -98,7 +99,7 @@
 % Date of the document:
 \date{\today}
 
-% Add any packages that you need:
+% Add any additional packages that you need:
 % \usepackage{tikz}
 
 % Add any references you cite.
@@ -127,7 +128,7 @@ Du kannst die Datei auf GitHub finden (\url{https://github.com/goethe-tcs/note-t
 
 Die Vorlage benutzt die Schriftarten EB Garamond und Source Code Pro. Stelle sicher, dass du sie auch wirklich installiert hast. Normalerweise sind sie bei einer vollen Installation von texlive mit dabei. Du kannst die Schriftarten aber natürlich auch ändern.
 
-\section*{Übliche Fehler}
+\section*{Übliche \LaTeX{}-Fehler}
 
 Übliche Fehler von \LaTeX{}-Neulingen sind:
 \begin{itemize}
@@ -186,7 +187,7 @@ Dann gilt $T(n)\le T(n-1) + 10n$, denn~$A$ macht für jedes Bit der Eingabe höc
   Das war zu zeigen.
 \end{itemize}
 
-% You can comment this out if you don't need a bibliography:
+% If you don't need a bibliography, remove the following lines:
 \bibliographystyle{plainurl}
 \bibliography{\jobname}
 
