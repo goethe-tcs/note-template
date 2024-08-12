@@ -1,7 +1,9 @@
-% LTeX: language=de
 \documentclass[a4paper,11pt,oneside,ngerman]{scrartcl}
 % For best results, it is recommended to use lualatex.
 % You don't need to edit the preamble until the fat comment below.
+
+% Set all margins to 1 inch:
+\usepackage[margin=1in]{geometry}
 
 % Multilanguage support
 \usepackage[english,main=ngerman,shorthands=off]{babel}
@@ -12,8 +14,11 @@
 % Set monospace font:
 \usepackage[scale=0.85]{sourcecodepro}
 
-% if amsthm is needed, must be loaded before newtxmath
+% Standard mathm packages:
 \usepackage{amsmath}
+\usepackage{amssymb}
+
+% If amsthm is needed, must be loaded before newtxmath:
 \usepackage{amsthm}
 
 % Set math font:
@@ -25,7 +30,7 @@
 % Standard packages
 \usepackage{microtype}
 \usepackage{booktabs}
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage[autostyle=true]{csquotes}
 
@@ -39,8 +44,15 @@
   linkcolor  = GoetheBlue,
   urlcolor   = GoetheBlue,
   unicode,
-  ]{hyperref}
-  \usepackage[nameinlink,capitalize]{cleveref}
+]{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+% Define amsthm theorem environments:
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}[lemma]{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
 
 % Nice typesetting of source code
 \usepackage{listings}
@@ -84,7 +96,7 @@
 \AtBeginDocument{\selectlanguage{ngerman}}
 
 % Set the title of this document:
-\title{Eine kurze Notiz zu dieser Notiz}
+\title{Template für Lösungen und kurze Berichte}
 % \title{Lösung zu Aufgabe x}
 % \title{Seminar Report: Dijkstra and Friends}
 % \title{Project Plan: An Implementation of Dijkstra's Algorithm}
@@ -104,7 +116,7 @@
 
 % Add any references you cite.
 % You can get most BibTex records from https://dblp.org.
-% Use the format "condensed".
+% (Use the format "condensed".)
 \begin{filecontents}[overwrite]{\jobname.bib}
 @inproceedings{DBLP:conf/coco/Karp72,
   author    = {Richard M. Karp},
@@ -159,11 +171,11 @@ Bilder lassen sich mit \verb|\includegraphics{mein-bild.pdf}| einfügen, welches
 
 Programmcode oder Pseudocode kann so eingebunden werden:
 \begin{lstlisting}[language=C++]
-  for (int i = 1; i < n; i++) {
-    for (int j = 1; j < i; j++) {
-      std::cout << i; /* $\Theta(n^2)$ mal ausgefuehrt */
-    }
+for (int i = 1; i < n; i++) {
+  for (int j = 1; j < i; j++) {
+    std::cout << i; /* $\Theta(n^2)$ mal ausgefuehrt */
   }
+}
 \end{lstlisting}
 
 
@@ -186,6 +198,18 @@ Dann gilt $T(n)\le T(n-1) + 10n$, denn~$A$ macht für jedes Bit der Eingabe höc
   \end{align*}
   Das war zu zeigen.
 \end{itemize}
+
+\section*{Lemma-Satz-Beweis}
+
+\begin{lemma}\label{my-lemma}
+Dies ist ein Lemma.
+\end{lemma}
+\begin{theorem}\label{my-theorem}
+    Dies ist ein Satz.
+\end{theorem}
+\begin{proof}
+    \cref{my-theorem} folgt direkt aus \cref{my-lemma}.
+\end{proof}
 
 % If you don't need a bibliography, remove the following lines:
 \bibliographystyle{plainurl}
